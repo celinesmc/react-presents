@@ -57,4 +57,19 @@ routerFriends.post("/", async (req,res)=>{ // Para agregar un amigo
     res.json({inserted: insertedFriend})
 })
 
+routerFriends.get("/", async (req,res)=>{
+    let email = req.infoInApiKey.email
+
+    database.connect(); 
+
+    let friends=[]
+
+    friends = await database.query('SELECT friends.emailFriend FROM friends JOIN users ON friends.emailMainUser = users.email WHERE friends.emailMainUser = ?', 
+        [email])
+    friendsList = friends.map(row => row.emailFriend)
+
+    database.disConnect();
+    res.send(friendsList)
+})
+
 module.exports=routerFriends
