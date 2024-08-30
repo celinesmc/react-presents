@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { backendURL } from "../Globals"
 import { useNavigate } from "react-router-dom";
+import { backendURL } from "../Globals"
+
 import { Alert, Button, Card, Col, Input, Row, Typography } from "antd";
+let { Text } = Typography
 
 let CreateUserComponent = (props) => {
     let [email, setEmail] = useState(null);
@@ -71,8 +73,6 @@ let CreateUserComponent = (props) => {
             }
         }
     }
-
-    let { Text } = Typography
 
     return (
         <Row align="middle" justify="center" style={{minHeight:"70vh"}}>

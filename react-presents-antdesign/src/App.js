@@ -1,4 +1,7 @@
 import CreateUserComponent from './Components/CreateUserComponent';
+import LoginUserComponent from './Components/LoginUserComponent';
+import CreatePresentsComponent from './Components/CreatePresentsComponent';
+import MyPresentsComponent from './Components/MyPresentsComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -45,6 +48,16 @@ let App = () => {
     })
   }
 
+  let disconnect = async () => {
+    let response = await fetch (backendURL+"/users/disconnect?apiKey="+localStorage.getItem("apiKey"))
+
+    if (response.ok){
+      localStorage.removeItem("apiKey")
+      setLogin(false)
+      navigate("/login")
+    }
+  }
+
   return (
     <>
     {contextHolder} 
@@ -58,8 +71,11 @@ let App = () => {
             </Menu>
         )}
         { login && ( 
-         <Menu theme="dark" mode="horizontal" items={[
-          ]}>
+            <Menu theme="dark" mode="horizontal" items={[
+              {key: "menuCreatePresents", label: <Link to="/createPresents">Create presents</Link>},
+              {key: "menuMyPresents", label: <Link to="myPresents">My presents</Link>},
+              {key: "menuDisconnect", label: <Link onClick={disconnect}>Disconnect</Link>}
+            ]}>
          </Menu>
         )}
       </Header>
@@ -67,6 +83,15 @@ let App = () => {
         <Routes>
           <Route path="/register" element={
             <CreateUserComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/login" element={
+            <LoginUserComponent setLogin={setLogin}/>
+          }/>
+          <Route path="/createPresents" element={
+            <CreatePresentsComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/myPresents" element={
+            <MyPresentsComponent createNotification={createNotification}/>
           }/>
           <Route path="/" element={
             <p>Index of website</p>
