@@ -5,6 +5,8 @@ const port = 4000
 
 const app = express();
 
+const routerUsers= require("./routers/routerUsers")
+
 var cors = require('cors');
 app.use(cors());
 
@@ -31,6 +33,7 @@ app.use(["/"], (req,res,next) => {
 })
 
 // ROUTERS
+app.use("/users", routerUsers)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
