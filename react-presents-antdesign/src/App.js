@@ -2,6 +2,9 @@ import CreateUserComponent from './Components/CreateUserComponent';
 import LoginUserComponent from './Components/LoginUserComponent';
 import CreatePresentsComponent from './Components/CreatePresentsComponent';
 import MyPresentsComponent from './Components/MyPresentsComponent';
+import EditPresentComponent from './Components/EditPresentComponent';
+import AddFriendComponent from './Components/AddFriendComponent';
+import FriendsListComponent from './Components/FriendsListComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -74,6 +77,7 @@ let App = () => {
             <Menu theme="dark" mode="horizontal" items={[
               {key: "menuCreatePresents", label: <Link to="/createPresents">Create presents</Link>},
               {key: "menuMyPresents", label: <Link to="myPresents">My presents</Link>},
+              {key: "menuMyFriends", label: <Link to="friends">Friends list</Link>},
               {key: "menuDisconnect", label: <Link onClick={disconnect}>Disconnect</Link>}
             ]}>
          </Menu>
@@ -92,6 +96,15 @@ let App = () => {
           }/>
           <Route path="/myPresents" element={
             <MyPresentsComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/presents/edit/:presentId" element={
+            <EditPresentComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/friends" element={
+            <FriendsListComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/addFriends" element={
+            <AddFriendComponent createNotification={createNotification}/>
           }/>
           <Route path="/" element={
             <p>Index of website</p>
