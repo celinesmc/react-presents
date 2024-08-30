@@ -90,6 +90,8 @@ routerUsers.post("/login", async (req,res)=>{ // Para conectarte
 
     database.disConnect();
 
+    // Genera la apiKey
+
     let apiKey = jwt.sign(
 		{ 
 			email: selectedUsers[0].email,
@@ -97,7 +99,7 @@ routerUsers.post("/login", async (req,res)=>{ // Para conectarte
             name: selectedUsers[0].name 
 		},
 		"secret");
-	activeApiKeys.push(apiKey)
+	activeApiKeys.push(apiKey) // La guarda en activeApiKeys
 
 
     res.json({
@@ -105,6 +107,22 @@ routerUsers.post("/login", async (req,res)=>{ // Para conectarte
         id: selectedUsers[0].id,
         email: selectedUsers[0].email
     })
+})
+
+routerUsers.get("/disconnect", async (req,res)=>{ // Para desconectarte. 
+    // Elimina la apiKey de la lista de apiKeys activas
+    const index = activeApiKeys.indexOf(req.query.apiKey);
+    if (index > -1) { 
+        activeApiKeys.splice(index, 1); 
+        res.json({removed: true})
+    } else {
+        return res.status(400).json({error: "user not found"})
+    }
+})
+
+routerUsers.get("/checkLogin", async (req,res)=>{ // Para checkear si un usuario está conectado
+    // Se debe ejecutar el middleware
+    return res.status(400).json({message: "ok"})
 })
 
 module.exports=routerUsers
