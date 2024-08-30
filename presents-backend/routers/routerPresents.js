@@ -70,7 +70,7 @@ routerPresents.post("/", async (req,res)=>{ // Crear un regalo
     res.json({inserted: insertedPresent})
 })
 
-routerPresents.delete("/:id", async (req,res)=>{
+routerPresents.delete("/:id", async (req,res)=>{ // Para borrar un regalo
     let id = req.params.id
     let idInApikey = req.infoInApiKey.id;
 
@@ -98,6 +98,48 @@ routerPresents.delete("/:id", async (req,res)=>{
     
     database.disConnect();
     res.json({deleted: true})
+})
+
+routerPresents.put("/:id", async (req,res)=>{
+    let idUser = req.infoInApiKey.id
+    let idPresent = parseInt(req.params.id)
+
+    let name = req.body.name
+    let description = req.body.description
+    let url = req.body.url;
+    let price = req.body.price;
+
+    database.connect();
+
+    let updatedPresent = null;
+    try {
+        let presents = await database.query('SELECT * FROM presents WHERE id = ? AND userId = ?',[idPresent, idUser])
+
+            if (presents.length == 0) {
+                return res.status(404).json({ error: "Present not found or unauthorized" });
+            }
+            if ( name == undefined ){
+                return res.status(400).json({error: "no name in body"})
+            }
+            if ( description == undefined ){
+                return res.status(400).json({error: "no description in body"})
+            }
+            if ( url == undefined ){
+                return res.status(400).json({error: "no url in body"})
+            }
+            if ( price == undefined ){
+                return res.status(400).json({error: "no price in body"})
+            }
+            updatedPresent = await database.query(
+                'UPDATE presents SET name = ?, description = ?, url = ?, price = ? WHERE id = ? ', 
+                [name, description, url, parseInt(price), idPresent])
+    } catch (e) {
+        database.disConnect();
+        return res.status(400).json({error: e})
+    }
+
+    database.disConnect();
+    res.json({modifiyed: updatedPresent})
 })
 
 module.exports=routerPresents
