@@ -21,7 +21,7 @@ routerPresents.get("/:id", async (req,res)=>{
 
     let presentUser = await database.query("SELECT userId FROM presents WHERE id = ?", [presentId])
     presentUser = presentUser[0].userId
-    
+
     let present = []
 
     if (idInApikey != presentUser) {
@@ -68,6 +68,36 @@ routerPresents.post("/", async (req,res)=>{ // Crear un regalo
 
     database.disConnect();
     res.json({inserted: insertedPresent})
+})
+
+routerPresents.delete("/:id", async (req,res)=>{
+    let id = req.params.id
+    let idInApikey = req.infoInApiKey.id;
+
+    if ( id == undefined ){
+        return res.status(400).json({error: "no id "})
+    }
+    database.connect();
+    try {
+    
+        let presents = await database.query('SELECT * FROM presents WHERE id = ? AND userId = ?', 
+            [id, idInApikey])
+
+        if (presents.length == 0) {
+            return res.status(404).json({ error: "Present not found or unauthorized" });
+        }
+
+        if ( presents.length > 0){
+            await database.query('DELETE FROM presents WHERE id = ?', 
+                [id])
+        }
+    } catch (e){
+        res.status(400).json({error: e })
+        return
+    }
+    
+    database.disConnect();
+    res.json({deleted: true})
 })
 
 module.exports=routerPresents
