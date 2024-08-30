@@ -6,7 +6,7 @@ let database = {
         host: 'localhost',
         user: 'root',
         password: 'prueba',
-        database: 'users',
+        database: 'presents',
         multipleStatements: true
     },
     connected:false,

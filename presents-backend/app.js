@@ -14,7 +14,7 @@ app.use(express.json());
 
 // MIDDLEWARE
 
-app.use(["/"], (req,res,next) => {
+app.use(["/n"], (req,res,next) => {
     console.log("middleware execution");
 
     let apiKey = req.query.apiKey

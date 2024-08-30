@@ -57,4 +57,54 @@ routerUsers.post("/", async (req,res)=>{
     res.json({inserted: insertedUser})
 })
 
+routerUsers.post("/login", async (req,res)=>{ // Para conectarte
+    let email = req.body.email
+    let password = req.body.password 
+    let errors = []
+
+    if ( email == undefined ){
+        errors.push("no email in body")
+    }
+    if ( password == undefined ){
+        errors.push("no password in body")
+    }
+    if ( errors.length > 0){
+        return res.status(400).json({error: errors})
+    }
+
+    database.connect();
+
+    let selectedUsers = null;
+    try {
+        selectedUsers = await database.query('SELECT id, email FROM users WHERE email = ? AND password = ?',
+            [email, password])
+
+    } catch (e){
+        database.disConnect();
+        return res.status(400).json({error: e})
+    }
+
+    if ( selectedUsers.length == 0){
+        return res.status(401).json({error: "invalid email or password"})
+    }
+
+    database.disConnect();
+
+    let apiKey = jwt.sign(
+		{ 
+			email: selectedUsers[0].email,
+			id: selectedUsers[0].id,
+            name: selectedUsers[0].name 
+		},
+		"secret");
+	activeApiKeys.push(apiKey)
+
+
+    res.json({
+        apiKey: apiKey,
+        id: selectedUsers[0].id,
+        email: selectedUsers[0].email
+    })
+})
+
 module.exports=routerUsers
