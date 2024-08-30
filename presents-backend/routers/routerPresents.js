@@ -4,12 +4,39 @@ const routerPresents= express.Router();
 const database = require("../database")
 
 routerPresents.get("/", async (req,res)=>{ // Ver los regalos de un usuario
+    let userEmail = req.query.userEmail
     let emailInApikey = req.infoInApiKey.email
     database.connect();
 
-    let presents = await database.query('SELECT presents.* , users.email FROM presents JOIN users ON presents.userId = users.id WHERE users.email = ?', 
-        [emailInApikey])
+    let presents=[]
 
+    try{
+    let usersReg = await database.query("SELECT email FROM users");
+    let usersList = usersReg.map(row => row.email);
+
+    if (usersList.includes(userEmail) == false) {
+        return res.status(400).json({error:"No user with that email"})
+    }
+
+    if ( userEmail != undefined){
+        let usersInList = await database.query('SELECT emailFriend FROM friends WHERE emailMainUser = ?', [userEmail])
+        let friendsList = usersInList.map(row => row.emailFriend);
+        if (friendsList.includes(emailInApikey) || userEmail == emailInApikey) {
+            presents = await database.query('SELECT presents.* , users.email FROM presents JOIN users ON presents.userId = users.id WHERE users.email = ?', [userEmail])
+        } else if (userEmail == emailInApikey){
+            presents = await database.query('SELECT presents.* , users.email FROM presents JOIN users ON presents.userId = users.id WHERE users.email = ?', 
+            [emailInApikey])
+        } else {
+            return res.status(400).json({error: "This user is not your friend"})
+        }
+    } else {
+        presents = await database.query('SELECT presents.* , users.email FROM presents JOIN users ON presents.userId = users.id WHERE users.email = ?', 
+        [emailInApikey])
+    }
+    } catch (e) {
+        database.disConnect();
+        return res.status(400).json({error: e})
+    }
     database.disConnect();
     res.send(presents)
 })
@@ -19,15 +46,20 @@ routerPresents.get("/:id", async (req,res)=>{
     let presentId = parseInt(req.params.id)
     database.connect();
 
-    let presentUser = await database.query("SELECT userId FROM presents WHERE id = ?", [presentId])
-    presentUser = presentUser[0].userId
-
     let present = []
 
-    if (idInApikey != presentUser) {
-        return res.status(400).json({error: "this present is not yours"})
-    } else {
-        present = await database.query ("SELECT * FROM presents WHERE id = ?", [presentId])
+    try {
+        let presentUser = await database.query("SELECT userId FROM presents WHERE id = ?", [presentId])
+        presentUser = presentUser[0].userId
+
+        if (idInApikey != presentUser) {
+            return res.status(400).json({error: "this present is not yours"})
+        } else {
+            present = await database.query ("SELECT * FROM presents WHERE id = ?", [presentId])
+        }
+    } catch (e){
+        database.disConnect();
+        return res.status(400).json({error: e})
     }
 
     database.disConnect();
@@ -100,24 +132,25 @@ routerPresents.delete("/:id", async (req,res)=>{ // Para borrar un regalo
     res.json({deleted: true})
 })
 
+
 routerPresents.put("/:id", async (req,res)=>{
     let idUser = req.infoInApiKey.id
-    let idPresent = parseInt(req.params.id)
+    let email = req.infoInApiKey.email
 
-    let name = req.body.name
-    let description = req.body.description
-    let url = req.body.url;
-    let price = req.body.price;
+    let idPresent = req.params.id
 
     database.connect();
 
     let updatedPresent = null;
+    
     try {
         let presents = await database.query('SELECT * FROM presents WHERE id = ? AND userId = ?',[idPresent, idUser])
+        if ( presents.length > 0){
+            let name = req.body.name
+            let description = req.body.description
+            let url = req.body.url;
+            let price = parseInt(req.body.price);
 
-            if (presents.length == 0) {
-                return res.status(404).json({ error: "Present not found or unauthorized" });
-            }
             if ( name == undefined ){
                 return res.status(400).json({error: "no name in body"})
             }
@@ -131,9 +164,39 @@ routerPresents.put("/:id", async (req,res)=>{
                 return res.status(400).json({error: "no price in body"})
             }
             updatedPresent = await database.query(
-                'UPDATE presents SET name = ?, description = ?, url = ?, price = ? WHERE id = ? ', 
+                'UPDATE presents SET name = ?, description = ?, url = ?,price = ? WHERE id = ? ', 
                 [name, description, url, parseInt(price), idPresent])
-    } catch (e) {
+        } else {
+            let present = await database.query('SELECT * FROM presents WHERE id = ?', [idPresent]);
+            if (present.length == 0) {
+                database.disConnect();
+                return res.status(404).json({ error: "Present not found" });
+            }
+
+            present = present[0]
+            let idUserPresent = present.userId
+            let emailUserPresent = await database.query("SELECT email FROM users WHERE id = ?", [idUserPresent])
+            emailUserPresent = emailUserPresent[0].email
+
+            if (present.chosenBy != null) {
+                database.disConnect();
+                return res.status(400).json({ error: "Present already chosen by another user" });
+            }
+
+            let isFriend = await database.query("SELECT emailFriend FROM friends WHERE emailMainUser = ?", [emailUserPresent]);
+            if (isFriend.some(friend => friend.emailFriend == email) == false) {
+                database.disConnect();
+                return res.status(403).json({ error: "This user is not your friend" });
+            }
+
+            if (idUserPresent == idUser) {
+                database.disConnect();
+                return res.status(400).json({ error: "User cannot choose their own present" });
+            }
+
+            updatedPresent = await database.query('UPDATE presents SET chosenBy = ? WHERE id = ?', [email, idPresent]);
+        }
+    } catch (e){
         database.disConnect();
         return res.status(400).json({error: e})
     }
