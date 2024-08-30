@@ -7,6 +7,7 @@ const app = express();
 
 const routerUsers= require("./routers/routerUsers")
 const routerPresents = require("./routers/routerPresents")
+const routerFriends = require("./routers/routerFriends")
 
 var cors = require('cors');
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(express.json());
 
 // MIDDLEWARE
 
-app.use(["/users/checkLogin", "/presents"], (req,res,next) => {
+app.use(["/users/checkLogin", "/presents", "/friends"], (req,res,next) => {
     console.log("middleware execution");
 
     let apiKey = req.query.apiKey
@@ -36,6 +37,7 @@ app.use(["/users/checkLogin", "/presents"], (req,res,next) => {
 // ROUTERS
 app.use("/users", routerUsers)
 app.use("/presents", routerPresents)
+app.use("/friends", routerFriends)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
