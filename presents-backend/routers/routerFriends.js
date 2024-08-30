@@ -72,4 +72,45 @@ routerFriends.get("/", async (req,res)=>{
     res.send(friendsList)
 })
 
+routerFriends.delete ("/:email", async (req,res) => {
+    let emailFriend = req.params.email
+    let emailUser = req.infoInApiKey.email
+    let errors = []
+
+    database.connect();
+    let usersInList = await database.query("SELECT emailFriend FROM friends WHERE emailMainUser = ?",
+        [emailUser])
+    let friendsList = usersInList.map(row => row.emailFriend);
+    database.disConnect();
+
+    if (friendsList.includes(emailFriend) == false){
+        errors.push("friend not added")
+    }
+    if ( emailFriend == undefined ){
+        errors.push("no friend email specified")
+    }
+    if ( errors.length > 0){
+        return res.status(400).json({error: errors})
+    }
+
+    database.connect();
+
+    let deletedFriend = null;
+    try {
+        deletedFriend = await database.query('DELETE FROM friends WHERE emailFriend = ? AND emailMainUser = ?',
+            [emailFriend, emailUser])
+    } catch (e){
+        database.disConnect();
+        return res.status(400).json({error: e})
+    }
+
+    if ( deletedFriend.length == 0){
+        return res.status(401).json({error: "invalid email"})
+    }
+
+    database.disConnect();
+    res.json({deleted: deletedFriend})
+})
+
+
 module.exports=routerFriends
