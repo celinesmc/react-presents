@@ -14,6 +14,26 @@ routerPresents.get("/", async (req,res)=>{ // Ver los regalos de un usuario
     res.send(presents)
 })
 
+routerPresents.get("/:id", async (req,res)=>{
+    let idInApikey = req.infoInApiKey.id
+    let presentId = parseInt(req.params.id)
+    database.connect();
+
+    let presentUser = await database.query("SELECT userId FROM presents WHERE id = ?", [presentId])
+    presentUser = presentUser[0].userId
+    
+    let present = []
+
+    if (idInApikey != presentUser) {
+        return res.status(400).json({error: "this present is not yours"})
+    } else {
+        present = await database.query ("SELECT * FROM presents WHERE id = ?", [presentId])
+    }
+
+    database.disConnect();
+    res.send(present)
+})
+
 routerPresents.post("/", async (req,res)=>{ // Crear un regalo
     let idUser = req.infoInApiKey.id
     let name = req.body.name
