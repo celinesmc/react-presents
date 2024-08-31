@@ -108,3 +108,26 @@
   padding: 5px;
 }
 
+.notification {
+  font-family: "Roboto", sans-serif;
+  position: relative;
+  background-color: white;
+  border: 1px solid grey;
+  color: grey;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  align-self: center;
+}
+
+.close-btn {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  color: red;
+  cursor: pointer;
+}
+

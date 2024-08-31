@@ -1,5 +1,6 @@
 import CreateUserComponent from './Components/CreateUserComponent';
 import LoginUserComponent from './Components/LoginUserComponent';
+import CreatePresentsComponent from './Components/CreatePresentsComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -61,7 +62,7 @@ let App = () => {
             <li><Link to="/" className='navbar-links'>Index</Link></li>
             { !login && <li><Link to="/register" className='navbar-links'>Register</Link></li>}
             { !login && <li><Link to="/login" className='navbar-links'>Login</Link></li>}
-            { login && <li><Link to="/createPresent" className='navbar-links'>Create presents</Link></li>}
+            { login && <li><Link to="/createPresents" className='navbar-links'>Create presents</Link></li>}
             { login && <li><Link to="/myPresents" className='navbar-links'>My presents</Link></li>}
             { login && <li><Link to="/friends" className='navbar-links'>Friends list</Link></li>}
             { login && <li><Link to="#" onClick={disconnect} className='navbar-links'>Disconnect</Link></li>}
@@ -82,6 +83,9 @@ let App = () => {
       }/>
       <Route path="/login" element={
         <LoginUserComponent setLogin={setLogin}/>
+      }/>
+      <Route path="/createPresents" element={
+        <CreatePresentsComponent createNotification={createNotification}/>
       }/>
       {/*
     <Route path="/" element={
