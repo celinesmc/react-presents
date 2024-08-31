@@ -5,8 +5,10 @@ import { backendURL } from "../Globals";
 
 import { Table, Button } from 'antd';
 
-let FriendsListComponent = () => {
+let FriendsListComponent = (props) => {
+    let { createNotification } = props;
     let [friends, setFriends] = useState([]);
+    let [message, setMessage] = useState("");
     let navigate = useNavigate();
 
     useEffect( () => {
@@ -27,6 +29,21 @@ let FriendsListComponent = () => {
     let addFriend = async () => {
         navigate("/addFriends")
     }
+
+    let deletePresent = async (emailFriend) => {
+        let response = await fetch(backendURL+"/friends/"+emailFriend+"?apiKey="+localStorage.getItem("apiKey"), {
+            method: "DELETE"
+        })
+
+        if (response.ok){
+           let updatedFriends = friends.filter(friends => friends != emailFriend) 
+           createNotification("Friend deleted successfuly")
+           setFriends(updatedFriends)
+        }else{
+            let jsonData = await response.json();
+            setMessage(jsonData.error); 
+        }
+    }
     
 
     let columns = [
@@ -37,7 +54,12 @@ let FriendsListComponent = () => {
         {
             title: "Email friend",
             dataIndex: "emailFriend"
-        },      
+        },
+        {
+            title: "Delete friend",
+            dataIndex: "emailFriend",
+            render: (emailFriend) => <Button onClick={() => {deletePresent(emailFriend)}}>Delete</Button>
+        }      
     ]
 
     return (
