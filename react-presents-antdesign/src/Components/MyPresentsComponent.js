@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import { backendURL } from "../Globals";
 
-import { Table, Button } from 'antd';
+import { Table, Button, Row, Col, Alert, Card, Input } from 'antd';
 
 let MyPresentsComponent = (props) => {
     let [presents, setPresents] = useState([]);
     let [message, setMessage] = useState("")
+    let [email, setEmail] = useState("")
     let navigate = useNavigate();
 
     let { createNotification } = props
@@ -53,6 +54,18 @@ let MyPresentsComponent = (props) => {
         navigate("/presents/edit/"+id) 
     }
 
+    let changeEmail = (e) => {
+        setEmail(e.currentTarget.value)
+    }
+
+    let searchPresents = async () => {
+        if (email != null) {
+            navigate("/presents/search/"+email)
+        } else {
+            setMessage("email can't be empty")
+        }
+    }
+
     let columns = [
         {
             title: "Mi id",
@@ -92,7 +105,20 @@ let MyPresentsComponent = (props) => {
     ]
 
     return (
-        <Table columns={columns} dataSource={presents}></Table>
+        <>
+            <Table columns={columns} dataSource={presents}></Table>
+            <Row align="center" justify="center" style={{minHeight:"30vh"}}>
+                <Col>
+                    { message != "" && <Alert type="error" message={message}/>}
+                    <Card title="Search user presents" style={{width: "500px"}}>
+                        <Input size="large" type="text" placeholder="user email" onChange={changeEmail}></Input>
+                        <Button type="primary" 
+                        style={{marginTop:"10px"}} 
+                        onClick={searchPresents} block>Search presents</Button>
+                    </Card>
+                </Col>
+            </Row>
+        </>
     )
 
 

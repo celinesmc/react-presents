@@ -5,6 +5,8 @@ import MyPresentsComponent from './Components/MyPresentsComponent';
 import EditPresentComponent from './Components/EditPresentComponent';
 import AddFriendComponent from './Components/AddFriendComponent';
 import FriendsListComponent from './Components/FriendsListComponent';
+import SearchPresentComponent from './Components/SearchPresentComponent';
+import ChoosePresentComponent from './Components/ChoosePresentComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -105,6 +107,12 @@ let App = () => {
           }/>
           <Route path="/addFriends" element={
             <AddFriendComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/presents/search/:userEmail" element={
+            <SearchPresentComponent createNotification={createNotification}/>
+          }/>
+          <Route path="/presents/choose/:id" element={
+            <ChoosePresentComponent createNotification={createNotification}/>
           }/>
           <Route path="/" element={
             <p>Index of website</p>
