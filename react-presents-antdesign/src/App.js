@@ -86,8 +86,8 @@ let App = () => {
             <Menu theme="dark" mode="horizontal" items={[
               {key: "index", label: <Link to ="/">Index</Link>},
               {key: "menuCreatePresents", label: <Link to="/createPresents">Create presents</Link>},
-              {key: "menuMyPresents", label: <Link to="myPresents">My presents</Link>},
-              {key: "menuMyFriends", label: <Link to="friends">Friends list</Link>},
+              {key: "menuMyPresents", label: <Link to="/myPresents">My presents</Link>},
+              {key: "menuMyFriends", label: <Link to="/friends">Friends list</Link>},
               {key: "menuDisconnect", label: <Link onClick={disconnect}>Disconnect</Link>}
             ]}>
          </Menu>
