@@ -19,13 +19,12 @@ routerPresents.get("/", async (req,res)=>{ // Ver los regalos de un usuario
     }
 
     if ( userEmail != undefined){
-        let usersInList = await database.query('SELECT emailFriend FROM friends WHERE emailMainUser = ?', [userEmail])
+        let usersInList = await database.query('SELECT emailFriend FROM friends WHERE emailMainUser = ?', 
+            [userEmail])
         let friendsList = usersInList.map(row => row.emailFriend);
         if (friendsList.includes(emailInApikey) || userEmail == emailInApikey) {
-            presents = await database.query('SELECT presents.* , users.email FROM presents JOIN users ON presents.userId = users.id WHERE users.email = ?', [userEmail])
-        } else if (userEmail == emailInApikey){
             presents = await database.query('SELECT presents.* , users.email FROM presents JOIN users ON presents.userId = users.id WHERE users.email = ?', 
-            [emailInApikey])
+                [userEmail])
         } else {
             return res.status(400).json({error: "This user is not your friend"})
         }

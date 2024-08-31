@@ -64,12 +64,11 @@ routerFriends.get("/", async (req,res)=>{
 
     let friends=[]
 
-    friends = await database.query('SELECT friends.emailFriend FROM friends JOIN users ON friends.emailMainUser = users.email WHERE friends.emailMainUser = ?', 
+    friends = await database.query('SELECT friends.* FROM friends JOIN users ON friends.emailMainUser = users.email WHERE friends.emailMainUser = ?', 
         [email])
-    friendsList = friends.map(row => row.emailFriend)
 
     database.disConnect();
-    res.send(friendsList)
+    res.send(friends)
 })
 
 routerFriends.delete ("/:email", async (req,res) => {
