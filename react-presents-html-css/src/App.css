@@ -204,3 +204,59 @@
   min-width: 500px;
 }
 
+.index-container {
+  font-family: "Roboto", sans-serif;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  align-items: center;
+}
+
+.index-title {
+  margin-bottom: 30px;
+}
+
+.index-list {
+  list-style: none;
+  text-align: center;
+  border-radius: 8px;
+  background-color: rgb(209, 238, 202); 
+}
+
+.index-list li {
+  padding: 20px;
+}
+
+.index-title2 {
+  margin-top: 80px;
+  margin-bottom: 30px
+}
+
+.index-list-2 {
+  list-style: none;
+  text-align: center;
+  border-radius: 8px;
+  background-color: rgb(218, 202, 238); 
+}
+
+.index-list-2 li {
+  padding: 20px;
+}
+
+.info-title {
+  font-size: 18px;
+  color: rgb(131, 72, 155);
+  margin-bottom: 20px;
+}
+
+b {
+  color:rgb(245, 24, 24);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color:whitesmoke
+}
+

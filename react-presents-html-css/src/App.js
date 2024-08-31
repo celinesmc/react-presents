@@ -2,9 +2,12 @@ import CreateUserComponent from './Components/CreateUserComponent';
 import LoginUserComponent from './Components/LoginUserComponent';
 import CreatePresentsComponent from './Components/CreatePresentsComponent';
 import MyPresentsComponent from './Components/MyPresentsComponent';
-
+import EditPresentComponent from './Components/EditPresentComponent';
 import FriendsListComponent from './Components/FriendsListComponent';
 import AddFriendComponent from './Components/AddFriendComponent';
+import SearchPresentComponent from './Components/SearchPresentComponent';
+import ChoosePresentComponent from './Components/ChoosePresentComponent';
+import IndexComponent from './Components/IndexComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -59,8 +62,9 @@ let App = () => {
   }
 
   return (
+    <>
     <div className="container">
-      <header class="header">
+      <header className="header">
         <nav>
           <ul className='navbar-links'>
             <li><Link to="/" className='navbar-links'>Index</Link></li>
@@ -94,18 +98,28 @@ let App = () => {
       <Route path="/myPresents" element={
         <MyPresentsComponent createNotification={createNotification}/>
       }/>
+      <Route path="/presents/edit/:presentId" element={
+        <EditPresentComponent createNotification={createNotification}/>
+      }/>
       <Route path="/friends" element={
         <FriendsListComponent createNotification={createNotification}/>
       }/>
       <Route path="/addFriends" element={
         <AddFriendComponent createNotification={createNotification}/>
       }/>
-      {/*
-    <Route path="/" element={
-      <IndexComponent/>
-    }/>*/}
+      <Route path="/presents/search/:userEmail" element={
+        <SearchPresentComponent createNotification={createNotification}/>
+      }/>
+      <Route path="/presents/choose/:id" element={
+        <ChoosePresentComponent createNotification={createNotification}/>
+      }/>
+      <Route path="/" element={
+        <IndexComponent/>
+      }/>
     </Routes>
-  </div>
+    </div>
+    <footer>Present Website</footer>
+  </>
   );
 }
 
