@@ -136,7 +136,6 @@
   cursor: pointer;
 }
 
-
 .container-presents{
   display: flex;
   flex-direction: column;
@@ -186,3 +185,8 @@
 .form-search-container {
   margin: 100px;
 }
+
+.form-add-container {
+  margin: 20px;
+}
+

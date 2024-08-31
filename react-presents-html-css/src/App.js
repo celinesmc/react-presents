@@ -3,6 +3,8 @@ import LoginUserComponent from './Components/LoginUserComponent';
 import CreatePresentsComponent from './Components/CreatePresentsComponent';
 import MyPresentsComponent from './Components/MyPresentsComponent';
 
+import FriendsListComponent from './Components/FriendsListComponent';
+
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -90,6 +92,9 @@ let App = () => {
       }/>
       <Route path="/myPresents" element={
         <MyPresentsComponent createNotification={createNotification}/>
+      }/>
+      <Route path="/friends" element={
+        <FriendsListComponent createNotification={createNotification}/>
       }/>
       {/*
     <Route path="/" element={

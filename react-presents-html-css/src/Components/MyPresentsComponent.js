@@ -63,44 +63,6 @@ let MyPresentsComponent = (props) => {
         }
     }
 
-    let columns = [
-        {
-            title: "Mi id",
-            dataIndex: "id" 
-        },
-        {
-            title: "name",
-            dataIndex: "name"
-        },
-        {
-            title: "Description",
-            dataIndex: "description"
-        },
-        {
-            title: "URL",
-            dataIndex: "url"
-        },
-        {
-            title: "Price",
-            dataIndex: "price"
-        },
-        {
-            title: "Chosen by",
-            dataIndex: "chosenBy",
-            render: (chosenBy) => chosenBy ? chosenBy : "Not chosen yet"
-        },
-        {
-            title: "Delete",
-            dataIndex: "id",
-            render: (id) => <button  onClick={() => {deletePresent(id)}}>Delete</button>
-        },
-        {
-            title: "Edit",
-            dataIndex: "id",
-            render: (id) => <button  onClick={() => {editPresent(id)}}>Edit</button>
-        }
-    ]
-
     return (
         <div className="container-presents">
             <table className="information-table">
