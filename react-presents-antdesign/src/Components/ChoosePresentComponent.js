@@ -19,6 +19,12 @@ let ChoosePresentComponent = (props) => {
             method: "PUT"
         })
 
+        if (id == localStorage.getItem("idUser")) {
+            createNotification("You can't choose your own present")
+            navigate("/myPresents")
+            return
+        }
+
         if (response.status == 401){
             navigate("/login")
             return
