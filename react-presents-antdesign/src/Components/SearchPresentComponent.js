@@ -11,7 +11,7 @@ let SearchPresentComponent = (props) => {
     let param = useParams();
     let userEmail = param.userEmail;
 
-    let { createNotification } = props
+    let { createNotification } = props;
 
     useEffect( () => {
         getPresents();
@@ -42,7 +42,7 @@ let SearchPresentComponent = (props) => {
 
     let columns = [
         {
-            title: "Mi id",
+            title: "My id",
             dataIndex: "id" 
         },
         {
@@ -78,6 +78,7 @@ let SearchPresentComponent = (props) => {
 
     return (
         <Table columns={columns} dataSource={presents}></Table>
+
     )
 
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { backendURL } from "../Globals"
 
+import { UserAddOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Input, Row, Typography } from "antd";
 let { Text } = Typography
 
@@ -85,7 +86,10 @@ let CreateUserComponent = (props) => {
                 { error.name && <Text type="danger">{error.name}</Text>}
                 <Input size="large" style={{marginTop:"10px"}} type="password" placeholder="your password" onChange={changePassword}></Input>
                 { error.password && <Text type="danger">{error.password}</Text>}
-                <Button type="primary" style={{marginTop:"10px"}} onClick={clickCreate} block>Create Account</Button>
+                <Button type="primary" 
+                style={{marginTop:"10px"}} 
+                icon={<UserAddOutlined />}
+                onClick={clickCreate} block>Create Account</Button>
             </Card>
             </Col>
     </Row>

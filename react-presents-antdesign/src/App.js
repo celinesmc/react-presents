@@ -7,6 +7,7 @@ import AddFriendComponent from './Components/AddFriendComponent';
 import FriendsListComponent from './Components/FriendsListComponent';
 import SearchPresentComponent from './Components/SearchPresentComponent';
 import ChoosePresentComponent from './Components/ChoosePresentComponent';
+import IndexComponent from './Components/IndexComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -44,11 +45,16 @@ let App = () => {
     }
   }
 
+  notification.config({
+    maxCount: 1
+  });
+
   // Lo sitúo aquí para utilizarlo en el resto de componentes y que se vea en toda la aplicación
   let createNotification = (msg, type="info", placement="top") => {
     api[type]({
       message: msg,
       description: msg,
+      showProgress: true,
       placement
     })
   }
@@ -70,6 +76,7 @@ let App = () => {
       <Header>
         { !login && ( 
             <Menu theme="dark" mode="horizontal" items={[ 
+              {key: "index", label: <Link to ="/">Index</Link>},
               {key: "menuRegister", label: <Link to ="/register">Register</Link>},
               {key: "menuLogin", label: <Link to ="/login">Login</Link>},
             ]}>
@@ -77,6 +84,7 @@ let App = () => {
         )}
         { login && ( 
             <Menu theme="dark" mode="horizontal" items={[
+              {key: "index", label: <Link to ="/">Index</Link>},
               {key: "menuCreatePresents", label: <Link to="/createPresents">Create presents</Link>},
               {key: "menuMyPresents", label: <Link to="myPresents">My presents</Link>},
               {key: "menuMyFriends", label: <Link to="friends">Friends list</Link>},
@@ -115,7 +123,7 @@ let App = () => {
             <ChoosePresentComponent createNotification={createNotification}/>
           }/>
           <Route path="/" element={
-            <p>Index of website</p>
+            <IndexComponent/>
           }/>
         </Routes>
       </Content>

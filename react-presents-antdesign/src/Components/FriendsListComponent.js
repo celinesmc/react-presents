@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 import { backendURL } from "../Globals";
 
+import { DeleteOutlined, HeartOutlined } from '@ant-design/icons';
 import { Table, Button } from 'antd';
 
 let FriendsListComponent = (props) => {
@@ -23,6 +24,7 @@ let FriendsListComponent = (props) => {
             setFriends(jsonData)
         } else {
             let jsonData = await response.json();
+            createNotification(jsonData.error)
         }
     }
 
@@ -58,14 +60,16 @@ let FriendsListComponent = (props) => {
         {
             title: "Delete friend",
             dataIndex: "emailFriend",
-            render: (emailFriend) => <Button onClick={() => {deletePresent(emailFriend)}}>Delete</Button>
+            render: (emailFriend) => <Button danger icon={<DeleteOutlined/>}onClick={() => {deletePresent(emailFriend)}}>Delete</Button>
         }      
     ]
 
     return (
         <>
         <Table columns={columns} dataSource={friends}/>
-        <Button onClick={addFriend}>Add new friend</Button>
+        <Button type="primary"
+        icon={<HeartOutlined/>} 
+        onClick={addFriend}>Add new friend</Button>
         </>
     )
 

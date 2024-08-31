@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { backendURL } from "../Globals"
 
+import { UserOutlined } from '@ant-design/icons';
 import { Button, Card, Input, Row, Col, Alert} from "antd";
 
 let LoginUserComponent = (props) => {
@@ -71,8 +72,9 @@ let LoginUserComponent = (props) => {
                 <Card title="Login" style={{ width: "500px"}}>
                     <Input ref={email} size="large" type="text" placeholder="your email"></Input>
                     <Input ref={password} size="large" style={{marginTop: "10px"}} type="password" placeholder="your password"></Input>
-                    <Button type="primary" style={{marginTop: "10px"}} 
-                        onClick={clickLogin} block>Login</Button>
+                    <Button type="primary" style={{marginTop: "10px"}}
+                    icon={<UserOutlined/>}
+                    onClick={clickLogin} block>Login</Button>
                 </Card>
             </Col>
         </Row>

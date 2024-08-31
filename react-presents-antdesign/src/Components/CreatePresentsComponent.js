@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { backendURL } from "../Globals";
 
+import { GiftOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Col, Input, Row, Typography } from "antd";
 let { Text } = Typography
 
@@ -78,7 +79,10 @@ let CreatePresentsComponent = (props) => {
             { error.price && <Text type="danger">{error.price}</Text>}
             <Input size="large" style={{marginTop:"10px"}} type="text" placeholder="url" onChange={(e) => changeProperty("url",e)}></Input>
             { error.url && <Text type="danger">{error.url}</Text>}
-            <Button type="primary" style={{marginTop:"10px"}} onClick={clickCreate} block>Create item</Button>
+            <Button type="primary"  
+            style={{marginTop:"10px"}} 
+            icon={<GiftOutlined/>}
+            onClick={clickCreate} block>Create present</Button>
         </Card>
         </Col>
      </Row>

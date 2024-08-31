@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { backendURL } from "../Globals";
 
+import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import { Table, Button, Row, Col, Alert, Card, Input } from 'antd';
 
 let MyPresentsComponent = (props) => {
@@ -95,12 +96,12 @@ let MyPresentsComponent = (props) => {
         {
             title: "Delete",
             dataIndex: "id",
-            render: (id) => <Button onClick={() => {deletePresent(id)}}>Delete</Button>
+            render: (id) => <Button danger icon={<DeleteOutlined/>} onClick={() => {deletePresent(id)}}>Delete</Button>
         },
         {
             title: "Edit",
             dataIndex: "id",
-            render: (id) => <Button onClick={() => {editPresent(id)}}>Edit</Button>
+            render: (id) => <Button type="primary" icon={<EditOutlined/>} onClick={() => {editPresent(id)}}>Edit</Button>
         }
     ]
 
@@ -114,7 +115,9 @@ let MyPresentsComponent = (props) => {
                         <Input size="large" type="text" placeholder="user email" onChange={changeEmail}></Input>
                         <Button type="primary" 
                         style={{marginTop:"10px"}} 
-                        onClick={searchPresents} block>Search presents</Button>
+                        onClick={searchPresents} 
+                        icon={<SearchOutlined/>}
+                        block>Search presents</Button>
                     </Card>
                 </Col>
             </Row>
@@ -124,4 +127,4 @@ let MyPresentsComponent = (props) => {
 
 }
 
-export default MyPresentsComponent
+export default MyPresentsComponent;
