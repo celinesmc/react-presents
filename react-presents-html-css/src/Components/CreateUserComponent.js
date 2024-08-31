@@ -73,7 +73,7 @@ let CreateUserComponent = (props) => {
 
     return (
         <div className="form-container">
-            { message != "" && <p className="form-message" message={message} />}
+            { message != "" && <p className="error-message">{message}</p>}
             <div className="form">
                 <h2 className="form-title">Register</h2>
                 <input className="input-form" type="text" placeholder="your email" onChange={changeEmail}></input>

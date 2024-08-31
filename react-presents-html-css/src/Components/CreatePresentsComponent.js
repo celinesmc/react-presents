@@ -64,7 +64,7 @@ let CreatePresentsComponent = (props) => {
 
     return (
         <div className="form-container">
-        { message != "" && <p className="form-message" type="error" message={message} />}
+        { message != "" && <p className="error-message">{message}</p>}
         <div className="form">
             <h2 className="form-title">Create present</h2>
             <input className="input-form" placeholder="name" onChange={(e) => changeProperty("name", e)}></input>

@@ -94,7 +94,7 @@ let MyPresentsComponent = (props) => {
                 </tbody>
             </table>
             <div className="form-search-container">
-                    { message != "" && <p className="form-message" type="error" message={message}/>}
+                { message != "" && <p className="error-message">{message}</p>}
                     <form className="form">
                     <h2 className="form-title">Search user presents</h2>
                         <input className="input-form" type="text" placeholder="user email" onChange={changeEmail}></input>

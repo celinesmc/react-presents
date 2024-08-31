@@ -65,7 +65,7 @@ let FriendsListComponent = (props) => {
                 </tbody>
             </table>    
             <div className="form-add-container">
-                { message != "" && <p className="form-message" type="error" message={message}/>}
+                { message != "" && <p className="error-message">{message}</p>}
                 <form>
                     <button className="normal-button" onClick={addFriend}>Add new friend</button>
                 </form>

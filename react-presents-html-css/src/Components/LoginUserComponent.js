@@ -64,7 +64,7 @@ let LoginUserComponent = (props) => {
 
     return (
         <div className="form-container">
-            { message != "" && <p message={message} />}
+            { message != "" && <p className="error-message">{message}</p>}
                 <div className="form">
                     <h2 className="form-title">Login</h2>
                     <input value={email} 

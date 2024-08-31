@@ -4,6 +4,7 @@ import CreatePresentsComponent from './Components/CreatePresentsComponent';
 import MyPresentsComponent from './Components/MyPresentsComponent';
 
 import FriendsListComponent from './Components/FriendsListComponent';
+import AddFriendComponent from './Components/AddFriendComponent';
 
 import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -95,6 +96,9 @@ let App = () => {
       }/>
       <Route path="/friends" element={
         <FriendsListComponent createNotification={createNotification}/>
+      }/>
+      <Route path="/addFriends" element={
+        <AddFriendComponent createNotification={createNotification}/>
       }/>
       {/*
     <Route path="/" element={
