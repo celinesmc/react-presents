@@ -9,7 +9,7 @@ import SearchPresentComponent from './Components/SearchPresentComponent';
 import ChoosePresentComponent from './Components/ChoosePresentComponent';
 import IndexComponent from './Components/IndexComponent';
 
-import { Route, Routes, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { backendURL } from './Globals';
@@ -67,13 +67,13 @@ let App = () => {
       <header className="header">
         <nav>
           <ul className='navbar-links'>
-            <li><Link to="/" className='navbar-links'>Index</Link></li>
-            { !login && <li><Link to="/register" className='navbar-links'>Register</Link></li>}
-            { !login && <li><Link to="/login" className='navbar-links'>Login</Link></li>}
-            { login && <li><Link to="/createPresents" className='navbar-links'>Create presents</Link></li>}
-            { login && <li><Link to="/myPresents" className='navbar-links'>My presents</Link></li>}
-            { login && <li><Link to="/friends" className='navbar-links'>Friends list</Link></li>}
-            { login && <li><Link to="#" onClick={disconnect} className='navbar-links'>Disconnect</Link></li>}
+            <li><NavLink to="/" className='navbar-links'>Index</NavLink></li>
+            { !login && <li><NavLink to="/register" className='navbar-links'>Register</NavLink></li>}
+            { !login && <li><NavLink to="/login" className='navbar-links'>Login</NavLink></li>}
+            { login && <li><NavLink to="/createPresents" className='navbar-links'>Create presents</NavLink></li>}
+            { login && <li><NavLink to="/myPresents" className='navbar-links'>My presents</NavLink></li>}
+            { login && <li><NavLink to="/friends" className='navbar-links'>Friends list</NavLink></li>}
+            { login && <li><NavLink to="/" onClick={disconnect} className='navbar-links'>Disconnect</NavLink></li>}
           </ul>
         </nav>
       </header>

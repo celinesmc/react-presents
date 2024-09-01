@@ -46,6 +46,11 @@
   color: rgb(255, 255, 255);
 }
 
+.header .navbar-links.active{
+  background-color: rgb(56, 100, 245);
+  border-radius: 8px;
+}
+
 .navbar-links {
   display: block;
   color: rgb(187, 187, 187);
@@ -100,10 +105,11 @@
   color: white;
   border-radius: 8px;
   border: none;
+  cursor: pointer;
 }
 
 .normal-button:hover {
-  cursor: pointer
+  background-color: rgb(100, 145, 182);
 }
 
 .form-message {
@@ -181,6 +187,11 @@
   color: white;
   border-radius: 8px;
   border: none;
+  cursor: pointer;
+}
+
+.danger-button:hover {
+  background-color:  rgb(211, 127, 127);
 }
 
 .form-search-container {
@@ -255,6 +266,8 @@ b {
 }
 
 footer {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
   text-align: center;
   padding: 20px;
   background-color:whitesmoke
