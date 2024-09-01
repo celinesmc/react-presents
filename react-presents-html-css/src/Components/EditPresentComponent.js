@@ -5,11 +5,38 @@ import { backendURL } from "../Globals";
 
 let EditPresentComponent = (props) => {
     let { createNotification } = props
+    let [error, setError] = useState("")
     let [presents, setPresents] = useState({});
     let { presentId } = useParams()
     let [message, setMessage] = useState("");
     let navigate = useNavigate();
 
+    useEffect(() => {
+        getPresent();
+    }, [])
+
+    useEffect(() => {
+        checkInputErrors();
+    },[presents])
+
+    let checkInputErrors = () => {
+        let updatedErrors = {}
+
+        if (presents.name == "" || presents.name?.length < 3){
+            updatedErrors.name = "Too short name"
+        }
+        if (presents.description == "" || presents.description?.length < 3){
+            updatedErrors.description = "Too short description"
+        }
+        if (presents.price == "" || presents.price < 0){
+            updatedErrors.price = "Must 0 or positive"
+        }
+        if (presents.url == "" || presents.url?.length < 3){
+            updatedErrors.url = "Too short url"
+        }
+
+        setError(updatedErrors)
+    }
 
 
     let getPresent = async () => {
@@ -23,10 +50,6 @@ let EditPresentComponent = (props) => {
         }
     }
 
-    useEffect(() => {
-        getPresent();
-    }, [])
-
     let clickEdit = async () => {
         let response = await fetch(backendURL+"/presents/"+presentId+"?apiKey="+localStorage.getItem("apiKey"), {
             method: "PUT",
@@ -34,17 +57,30 @@ let EditPresentComponent = (props) => {
             body: JSON.stringify(presents)
         })
 
+        try {
         if (response.ok){
+            setMessage("Modified")
             createNotification("Present has been edited correctly")
             navigate("/myPresents")
         } else {
-            let jsonData = await response.json()
-            setMessage(jsonData.error)
+            let jsonData = await response.json();
+            if (Array.isArray(jsonData.error)){
+                let finalErrorMessage = "";
+                jsonData.error.forEach(obj => 
+                    { finalErrorMessage += obj + " "})
+                setMessage(finalErrorMessage)
+            } else {
+                setMessage(jsonData.error)
+            }
+        }} catch (error) {
+            console.log(error);
+            createNotification("Error editing")
+            navigate("/myPresents")
         }
     }
 
-    let changeProperty = (propertyName, value)=> {
-        let newPresentValues = {...presents,[propertyName] : value }
+    let changeProperty = (propertyName, e)=> {
+        let newPresentValues = {...presents,[propertyName] : e.currentTarget.value }
         setPresents(newPresentValues)
     }
 
@@ -52,33 +88,37 @@ let EditPresentComponent = (props) => {
         <div className="form-container">
         <div className="form-search-container">
         { message != "" && <p className="error-message">{message}</p>}
-            <form className="form">
+            <div className="form">
             <h2 className="form-title">Edit present</h2>
                 <input 
-                onChange={(e) => changeProperty("name", e.currentTarget.value)}
+                onChange={(e) => changeProperty("name", e)}
                 className="input-form" type="text" 
                 value={presents?.name}
                 placeholder="your name"/>
+                { error.name && <p className="form-message">{error.name}</p>}
                 <input 
-                onChange={(e) => changeProperty("description", e.currentTarget.value)}
+                onChange={(e) => changeProperty("description", e)}
                 className="input-form" type="text" 
                 placeholder="your description"
                 value={presents?.description}/>
+                { error.description && <p className="form-message">{error.description}</p>}
                 <input 
-                onChange={(e) => changeProperty("url", e.currentTarget.value)}
+                onChange={(e) => changeProperty("url", e)}
                 className="input-form" type="text" 
                 placeholder="your url" 
                 value={presents?.url}/>
+                { error.price && <p className="form-message">{error.price}</p>}
                 <input 
-                onChange={(e) => changeProperty("price", e.currentTarget.value)}
+                onChange={(e) => changeProperty("price", e)}
                 className="input-form" type="number" 
                 placeholder="your price"
                 value={presents?.price}/>
-                <button type="primary" 
+                { error.url && <p className="form-message">{error.url}</p>}
+                <button
                 className="normal-button"
                 onClick={clickEdit}
                 block>Edit present</button>
-            </form>
+            </div>
     </div>
     </div>
     )
