@@ -65,6 +65,7 @@ let MyPresentsComponent = (props) => {
 
     return (
         <div className="container-presents">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             <table className="information-table">
                 <thead>
                     <tr>
@@ -87,8 +88,10 @@ let MyPresentsComponent = (props) => {
                             <td>{p?.url}</td>
                             <td>{p?.price}</td>
                             <td>{p.chosenBy ? p.chosenBy : "Not chosen yet"}</td>
-                            <td><button className="danger-button" onClick={() => {deletePresent(p?.id)}}>Delete</button></td>
-                            <td><button className="normal-button" onClick={() => {editPresent(p?.id)}}>Edit</button></td>
+                            <td><button className="danger-button" onClick={() => {deletePresent(p?.id)}}>
+                            <span className="material-symbols-outlined">delete</span>Delete</button></td>
+                            <td><button className="normal-button" onClick={() => {editPresent(p?.id)}}>
+                            <span className="material-symbols-outlined">edit</span>Edit</button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -101,7 +104,10 @@ let MyPresentsComponent = (props) => {
                         <button type="primary" 
                         className="normal-button"
                         onClick={searchPresents} 
-                        block>Search presents</button>
+                        block>
+                            <span className="material-symbols-outlined">search</span>
+                            Search present
+                        </button>
                     </form>
             </div>
         </div>

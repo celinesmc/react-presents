@@ -86,6 +86,7 @@ let EditPresentComponent = (props) => {
 
     return (
         <div className="form-container">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
         <div className="form-search-container">
         { message != "" && <p className="error-message">{message}</p>}
             <div className="form">
@@ -117,7 +118,7 @@ let EditPresentComponent = (props) => {
                 <button
                 className="normal-button"
                 onClick={clickEdit}
-                block>Edit present</button>
+                block><span class="material-symbols-outlined">edit</span>Edit present</button>
             </div>
     </div>
     </div>

@@ -64,6 +64,7 @@ let CreatePresentsComponent = (props) => {
 
     return (
         <div className="form-container">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         { message != "" && <p className="error-message">{message}</p>}
         <div className="form">
             <h2 className="form-title">Create present</h2>
@@ -76,7 +77,8 @@ let CreatePresentsComponent = (props) => {
             <input className="input-form" type="text" placeholder="url" onChange={(e) => changeProperty("url",e)}></input>
             { error.url && <p className="form-message">{error.url}</p>}
             <button className="normal-button"
-            onClick={clickCreate} block>Create present</button>
+            onClick={clickCreate} block>
+                <span class="material-symbols-outlined">featured_seasonal_and_gifts</span>Create present</button>
         </div>
         </div>
     )

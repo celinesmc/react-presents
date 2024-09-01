@@ -73,7 +73,7 @@ let App = () => {
             { login && <li><NavLink to="/createPresents" className='navbar-links'>Create presents</NavLink></li>}
             { login && <li><NavLink to="/myPresents" className='navbar-links'>My presents</NavLink></li>}
             { login && <li><NavLink to="/friends" className='navbar-links'>Friends list</NavLink></li>}
-            { login && <li><NavLink to="/" onClick={disconnect} className='navbar-links'>Disconnect</NavLink></li>}
+            { login && <li><NavLink to="/dis" onClick={disconnect} className='navbar-links'>Disconnect</NavLink></li>}
           </ul>
         </nav>
       </header>

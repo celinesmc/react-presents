@@ -46,6 +46,7 @@ let FriendsListComponent = (props) => {
     
     return (
         <div className="container-presents">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             <table className="information-table">
                 <thead>
                     <tr>
@@ -59,7 +60,8 @@ let FriendsListComponent = (props) => {
                         <tr>
                             <td>{f?.emailMainUser}</td>
                             <td>{f?.emailFriend}</td>
-                            <td><button className="danger-button" onClick={() => {deletePresent(f?.emailFriend)}}>Delete</button></td>
+                            <td><button className="danger-button" onClick={() => {deletePresent(f?.emailFriend)}}>
+                            <span className="material-symbols-outlined">delete</span>Delete</button></td>
                         </tr>
                     ))}
                 </tbody>
@@ -67,7 +69,8 @@ let FriendsListComponent = (props) => {
             <div className="form-add-container">
                 { message != "" && <p className="error-message">{message}</p>}
                 <form>
-                    <button className="normal-button" onClick={addFriend}>Add new friend</button>
+                    <button className="normal-button" onClick={addFriend}>
+                        <span class="material-symbols-outlined">person_add</span>Add new friend</button>
                 </form>
             </div>
         </div>

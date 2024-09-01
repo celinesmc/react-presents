@@ -41,6 +41,7 @@ let SearchPresentComponent = (props) => {
 
     return (
         <div className="container-presents">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <table className="information-table">
             <thead>
                 <tr>
@@ -62,7 +63,8 @@ let SearchPresentComponent = (props) => {
                         <td>{p?.url}</td>
                         <td>{p?.price}</td>
                         <td>{p.chosenBy ?  "Already chosen" : "Not chosen yet"}</td>
-                        <td><button className="normal-button" onClick={() => {choosePresent(p?.id)}}>Choose</button></td>
+                        <td><button className="normal-button" onClick={() => {choosePresent(p?.id)}}>
+                        <span class="material-symbols-outlined">check</span>Choose</button></td>
                     </tr>
                 ))}
             </tbody>

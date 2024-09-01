@@ -73,6 +73,7 @@ let CreateUserComponent = (props) => {
 
     return (
         <div className="form-container">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             { message != "" && <p className="error-message">{message}</p>}
             <div className="form">
                 <h2 className="form-title">Register</h2>
@@ -83,7 +84,8 @@ let CreateUserComponent = (props) => {
                 <input className="input-form" type="password" placeholder="your password" onChange={changePassword}></input>
                 { error.password && <p className="form-message">{error.password}</p>}
                 <button className="normal-button"
-                onClick={clickCreate} block>Create Account</button>
+                onClick={clickCreate} block><span class="material-symbols-outlined">
+                account_circle</span>Create Account</button>
             </div>
         </div>
     )

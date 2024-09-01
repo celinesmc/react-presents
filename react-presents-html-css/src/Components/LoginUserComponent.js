@@ -64,6 +64,7 @@ let LoginUserComponent = (props) => {
 
     return (
         <div className="form-container">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
             { message != "" && <p className="error-message">{message}</p>}
                 <div className="form">
                     <h2 className="form-title">Login</h2>
@@ -78,7 +79,8 @@ let LoginUserComponent = (props) => {
                     onChange={(e) => setPassword(e.target.value)} 
                     placeholder="your password"></input>
                     <button className="normal-button"
-                    onClick={clickLogin} block>Login</button>
+                    onClick={clickLogin} block><span class="material-symbols-outlined">login
+                    </span>Login</button>
                 </div>
         </div>
     )
