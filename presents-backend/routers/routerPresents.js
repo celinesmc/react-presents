@@ -151,7 +151,7 @@ routerPresents.put("/:id", async (req,res)=>{
             let price = parseInt(req.body.price);
 
             if ( name == undefined ){
-                return res.status(400).json({error: "no name in body"})
+                return res.status(400).json({error: "no name in body. If you are trying to choose the present, remember you can't choose your own present!"})
             }
             if ( description == undefined ){
                 return res.status(400).json({error: "no description in body"})
