@@ -234,40 +234,8 @@
 }
 
 .index-title {
+  margin-top: 10px;
   margin-bottom: 30px;
-}
-
-.index-list {
-  list-style: none;
-  text-align: center;
-  border-radius: 8px;
-  background-color: rgb(209, 238, 202); 
-}
-
-.index-list li {
-  padding: 20px;
-}
-
-.index-title2 {
-  margin-top: 80px;
-  margin-bottom: 30px
-}
-
-.index-list-2 {
-  list-style: none;
-  text-align: center;
-  border-radius: 8px;
-  background-color: rgb(218, 202, 238); 
-}
-
-.index-list-2 li {
-  padding: 20px;
-}
-
-.info-title {
-  font-size: 18px;
-  color: rgb(131, 72, 155);
-  margin-bottom: 20px;
 }
 
 b {
@@ -289,5 +257,111 @@ span {
     'wght' 400,
     'GRAD' 0,
     'opsz' 20
+}
+
+.container-accordion {
+  max-width: 70vh;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.container-accordion details {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgba(221, 221, 221, 0.767);
+  border-radius: 1px;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+.container-accordion summary {
+  font-size: 17px;
+  font-weight: 500;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  cursor: pointer;
+  font: medium;
+  outline: none;
+  color: white;
+  padding: 5px;
+  background-color: rgb(21, 126, 212);
+}
+
+.container-accordion details[open]{
+  background-color: rgba(221, 221, 221, 0.767);
+}
+
+.container-accordion details p, b {
+  margin: 5px;
+}
+
+.summary-content {
+  margin: 40px 20px 40px 20px;
+  font-size: 16px;
+}
+
+details summary::before {
+  content: '+';
+  font-size: 20px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+details[open] summary::before {
+  content: '-'; 
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+details[open] summary {
+  background-color: rgb(14, 66, 109);
+}
+
+.index-title2 {
+  font-size: 25px;
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 30px
+}
+
+.steps {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 70vh;
+  margin: 0 auto;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  background-color: rgb(21, 126, 212);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.step-content {
+  background-color: white;
+  padding: 10px ;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+.step-title {
+  margin: 10px;
+  font-size: 18px;
 }
 

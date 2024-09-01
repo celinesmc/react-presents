@@ -65,6 +65,7 @@ let App = () => {
     <>
     <div className="container">
       <header className="header">
+
         <nav>
           <ul className='navbar-links'>
             <li><NavLink to="/" className='navbar-links'>Index</NavLink></li>
